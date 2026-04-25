@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ddec",
+                        "accent": "#FF003C",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#05050A",
+                        "surface": "#0F111A",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                    backgroundImage: {
+                        'gradient-text': 'linear-gradient(to right, #13ddec, #FF003C)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Noise Texture */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        /* Primary CTA Hover Glow */
+        .btn-neon {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-neon:hover {
+            background-color: #13ddec;
+            color: #05050A;
+            box-shadow: 0 0 30px rgba(19, 221, 236, 0.6);
+        }
+
+        /* Loading Dot Pulse */
+        @keyframes pulse-neon {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(19, 221, 236, 0.5);
+            }
+            50% {
+                transform: scale(1.5);
+                box-shadow: 0 0 30px rgba(19, 221, 236, 1);
+            }
+        }
+        .loading-dot {
+            animation: pulse-neon 1.5s infinite ease-in-out;
+        }
+
+        /* Hide Loading Screen after simple delay for demo */
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        #loading-screen {
+            animation: fadeOut 0.5s ease-out 2s forwards;
+        }
+
+        /* Text Gradient Utility */
+        .text-gradient {
+            background: linear-gradient(to right, #13ddec, #FF003C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display overflow-x-hidden relative selection:bg-primary/30 selection:text-primary">
+<!-- Loading Screen -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-[#05050A]" id="loading-screen">
+<div class="w-4 h-4 rounded-full bg-primary loading-dot"></div>
+</div>
+<!-- Main Container (100vh) -->
+<main class="relative w-full h-screen overflow-hidden flex flex-col">
+<!-- Video Background & Overlays -->
+<div class="absolute inset-0 z-0">
+<!-- Simulated Video Background (using image for generic HTML) -->
+<div class="w-full h-full bg-cover bg-center" data-alt="Abstract dark cyberpunk neon lights motion" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZN38NljAvLa9xXbLJ9benv5_UQuJjfPeqGUYe2-6CtX9ku2JMgboD-2Xph2N5saYqcLo7VW8qnHmjnCmeapSALh1V8beDdmDqRKiiXzBxDfLz2Cj1dxFVGoG5RF31NMdRhWT0bTlocv6gsxxXYDFBP7lsJj0xnodsz21bt5oT0XKcOQLb52EPoCZT2LqGzvF5bx1rC5xYQk6SPhD44qwreIBmzALnikdoNujwi3s4mfmGQhj1EYQfpTn5mK8ckH3PNbFZPUQWquk');"></div>
+<!-- Dimming Overlay -->
+<div class="absolute inset-0 bg-[#05050A]/70"></div>
+<!-- Noise Texture Overlay -->
+<div class="absolute inset-0 bg-noise mix-blend-overlay"></div>
+<!-- Fake Cursor Glow (Static for HTML only) -->
+<div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+</div>
+<!-- Floating Navigation -->
+<div class="relative z-10 w-full px-6 py-6 md:px-12 flex justify-center">
+<header class="w-full max-w-[1200px] flex items-center justify-between backdrop-blur-md bg-surface/50 border border-white/5 rounded-2xl px-8 py-4 shadow-lg">
+<div class="flex items-center gap-3 text-slate-100">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<h2 class="text-xl font-bold tracking-tight">CECI'S PORTFOLIO</h2>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium tracking-wide" href="#">Proyectos</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium tracking-wide" href="#">Contacto</a>
+</nav>
+<button class="md:hidden text-slate-100 hover:text-primary">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</header>
+</div>
+<!-- Hero Content -->
+<div class="relative z-10 flex-1 flex flex-col justify-center px-6 md:px-12 w-full max-w-[1400px] mx-auto">
+<div class="max-w-4xl flex flex-col items-start gap-8">
+<div class="flex flex-col gap-4">
+<h1 class="text-6xl md:text-8xl lg:text-[120px] font-extrabold leading-[0.9] tracking-tighter text-gradient uppercase drop-shadow-lg">
+                        Cecilia <br/>Taboada
+                    </h1>
+<h2 class="text-xl md:text-2xl text-slate-300 font-light max-w-2xl leading-relaxed mt-4">
+                        Edición de video y motion graphics.
+                        Transformo ideas en movimiento.
+                    </h2>
+</div>
+<div class="mt-8">
+<button class="btn-neon flex items-center justify-center h-14 px-10 rounded-lg border border-primary text-primary bg-transparent text-sm font-bold uppercase tracking-[0.1em]">
+                        Contacto
+                    </button>
+</div>
+<div>
+<button class="btn-neon flex items-center justify-center h-14 px-10 rounded-lg border border-primary text-primary bg-transparent text-sm font-bold uppercase tracking-[0.1em]">
+                        Proyectos
+                    </button>
+</div>
+</div>
+</div>
+<!-- Scroll Indicator 
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
+<span class="text-xs tracking-widest uppercase text-slate-400">Scroll</span>
+<span class="material-symbols-outlined text-primary animate-bounce">arrow_downward</span> -->
+</div>
+</main>
+</body></html>

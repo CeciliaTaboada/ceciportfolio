@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proyecto PODCAT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ddec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#05050A", // Adjusted to match the specific deep obsidian requirement
+                        "surface": "#0F111A",
+                        "surface-light": "#1A1D2D",
+                        "accent": "#FF003C",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #05050A;
+            color: #E0E2F0;
+            overflow-x: hidden;
+        }
+        
+        /* Subtle global noise texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(15, 17, 26, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .neon-border-hover:hover {
+            box-shadow: 0 0 20px rgba(19, 221, 236, 0.4);
+            border-color: #13ddec;
+        }
+
+        .embed-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background-color: #0F111A;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Aspect ratio helpers if standard tailwind classes aren't enough for specific embeds */
+        .aspect-9-16 {
+            aspect-ratio: 9 / 16;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05050A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1A1D2D;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #13ddec;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-slate-100 min-h-screen antialiased selection:bg-primary/30 selection:text-primary">
+<!-- Global Floating Nav -->
+<nav class="fixed top-0 left-0 right-0 z-40 glass-nav h-[72px] flex items-center transition-all duration-300">
+<div class="max-w-[1440px] w-full mx-auto px-6 md:px-12 flex items-center justify-between">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-8 h-8 flex items-center justify-center text-primary group-hover:drop-shadow-[0_0_8px_rgba(19,221,236,0.8)] transition-all duration-300">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300 uppercase">Ceci Portafolio</h2>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-300 hover:text-primary text-sm font-medium uppercase tracking-[2px] transition-colors duration-300" href="#">Proyectos</a>
+<a class="text-slate-300 hover:text-primary text-sm font-medium uppercase tracking-[2px] transition-colors duration-300" href="#">Sobre Mí</a>
+<a class="text-slate-300 hover:text-primary text-sm font-medium uppercase tracking-[2px] transition-colors duration-300" href="#">Contacto</a>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-slate-300 hover:text-primary">
+<span class="material-symbols-outlined" style="font-size: 28px;">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Area - Split Layout -->
+<main class="max-w-[1440px] mx-auto px-6 md:px-12 pt-[120px] pb-24 min-h-screen">
+<!-- Back Button for Context -->
+<div class="mb-8">
+<a class="inline-flex items-center gap-2 text-slate-400 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="text-sm font-medium uppercase tracking-wider">Volver a Proyectos</span>
+</a>
+</div>
+<div class="flex flex-col lg:flex-row gap-12 lg:gap-16 relative items-start">
+<!-- Left Column: Media Stack (60%) -->
+<div class="w-full lg:w-[60%] flex flex-col gap-8 lg:gap-12">
+<!-- 16:9 Landscape Video (e.g., YouTube/Vimeo style placeholder) -->
+<div class="relative aspect-video group cursor-pointer"
+     onclick="window.open('https://www.youtube.com/watch?v=QJEwg5psBgY', '_blank')">
+
+  <!-- Thumbnail -->
+  <img src="https://img.youtube.com/vi/QJEwg5psBgY/hqdefault.jpg"
+       class="w-full h-full object-cover rounded-xl"/>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+    <div class="w-16 h-16 rounded-full bg-black/60 flex items-center justify-center text-white group-hover:scale-110 transition">
+      <span class="material-symbols-outlined" style="font-size: 32px;">play_arrow</span>
+    </div>
+  </div>
+
+</div>
+<!-- 9:16 Portrait Video (e.g., Instagram Reel/TikTok style placeholder) -->
+ <div class="relative aspect-video group cursor-pointer"
+     >
+     <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/show/4DiR38Kiw0plfOs3EDGsTM/video?utm_source=generator" class="w-full h-full object-cover rounded-xl" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  <!-- Thumbnail -->
+
+  <!-- Overlay -->
+
+
+</div>
+<!-- High Res Image / Styleframe -->
+</div>
+<!-- Right Column: Sticky Context Sidebar (40%) -->
+<div class="w-full lg:w-[40%] lg:sticky lg:top-[120px]">
+<div class="flex flex-col gap-8">
+<!-- Header Section -->
+<div class="border-b border-white/5 pb-8">
+<div class="flex items-center gap-3 mb-4">
+<span class="text-xs font-bold tracking-[2px] uppercase text-accent border border-accent/30 bg-accent/10 px-3 py-1 rounded-full">YouTube</span>
+<span class="text-xs font-bold tracking-[2px] uppercase text-accent border border-accent/30 bg-accent/10 px-3 py-1 rounded-full">Instagram</span>
+<span class="text-xs font-bold tracking-[2px] uppercase text-accent border border-accent/30 bg-accent/10 px-3 py-1 rounded-full">Spotify</span>
+<span class="text-slate-400 text-sm">2025</span>
+</div>
+<h1 class="text-4xl md:text-[48px] font-bold leading-[1.1] text-white tracking-tight mb-4">
+                            Campaña <br/>PODCAT<span class="text-primary text-5xl">.</span>
+</h1>
+<p class="text-slate-300 text-lg leading-relaxed font-light">
+                            Una serie de entrevistas dirigidas por una experta en comportamiento felino, donde nos educamos sobre cuidados, necesidades, medicina, comportamiento y nutrición para nuestros gatitos.
+                        </p>
+</div>
+<!-- Mi Rol Card -->
+<div class="bg-surface rounded-xl p-8 border-l-[3px] border-l-primary border-y border-r border-y-white/5 border-r-white/5 relative overflow-hidden group hover:border-r-white/10 hover:border-y-white/10 transition-colors">
+<!-- Subtle background glow -->
+<div class="absolute -left-20 -top-20 w-40 h-40 bg-primary/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-primary/20 transition-colors duration-500"></div>
+<div class="relative z-10">
+<h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                                Mi Rol
+                            </h3>
+<ul class="space-y-4">
+    <li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-accent text-[20px] mt-1">check_circle</span>
+<span class="leading-relaxed"><strong>Filmación:</strong> Junto a mi equipo filmamos las entrevistas con dos cámaras Sony FX3. </span>
+</li>
+<li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-accent text-[20px] mt-1">check_circle</span>
+<span class="leading-relaxed"><strong>Motion:</strong> Me encargué de la animación de la intro de la serie. También animé los logos de las marcas junto con las cajas 3D de medicamentos que aparecen a lo largo del video.</span>
+</li>
+<li class="flex items-start gap-3 text-slate-300">
+<span class="material-symbols-outlined text-accent text-[20px] mt-1">check_circle</span>
+<span class="leading-relaxed"><strong>Color Grading y montaje:</strong> Me ocupe de la corrección de color en 4 de las 6 entrevistas y realicé el montaje de las mismas. </span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Tech Stack / Tools -->
+<div>
+<h4 class="text-sm font-bold tracking-[2px] uppercase text-slate-400 mb-4">Herramientas Utilizadas</h4>
+<div class="flex flex-wrap gap-3">
+<span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">After Effects</span>
+<!-- <span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">Cinema 4D</span>
+<span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">Octane Render</span>
+<span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">DaVinci Resolve</span> -->
+<span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">Premiere Pro</span>
+<span class="bg-surface-light text-primary border border-primary/20 px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_15px_rgba(19,221,236,0.2)] transition-all cursor-default">Sony FX3</span>
+</div>
+</div>
+<!-- CTA / Next Project -->
+<div class="mt-8 pt-8 border-t border-white/5 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-xs font-medium tracking-[2px] uppercase text-slate-500 mb-1">Siguiente Proyecto</span>
+<a class="text-lg font-bold text-white hover:text-accent transition-colors" href="#">Spotify Wrapped 3D</a>
+</div>
+<a class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-accent hover:border-accent hover:shadow-[0_0_20px_rgba(255,0,60,0.4)] transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
